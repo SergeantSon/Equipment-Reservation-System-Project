@@ -26,13 +26,13 @@ public class User extends Employee {
 
     public void sendReservationRequest(String tId, String eName) {
         query = "INSERT INTO BERKE.\"Requests\" (\"UserID\", \"eName\", \"Date\")  VALUES ('" + tId + "', '" + eName + "', CURRENT_DATE)";
-        temp.addToDatabase(query);
+        temp.queryMachine(query);
         temp = null;
     }
 
     public void sendFeedback(String tId, String text) {
         query = "INSERT INTO BERKE.FEEDBACK (\"UserName\", \"Date\", FEEDBACK) VALUES ('" + tId + "', CURRENT_DATE, '" + text + "')";
-        temp.addToDatabase(query);
+        temp.queryMachine(query);
         temp = null;
     }
 

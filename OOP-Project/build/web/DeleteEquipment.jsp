@@ -1,11 +1,11 @@
 <%-- 
-    Document   : ReserveEquipment
-    Created on : Dec 16, 2018, 6:49:02 PM
+    Document   : DeleteEquipment
+    Created on : Dec 18, 2018, 10:32:42 PM
     Author     : brk
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="Classes.User"%>
+<%@page import="Classes.Clerk"%>
 <%@page import="Classes.Equipment"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,15 +15,15 @@
         <title>Success</title>
     </head>
     <body>
-        <% 
+        <%
             Equipment eqp;
-            
-            User usr = (User)session.getAttribute("instance");
-            List<Equipment> eList = (List)session.getAttribute("eList");
-            
+
+            Clerk clrk = (Clerk) session.getAttribute("instance");
+            List<Equipment> eList = (List) session.getAttribute("eList");
+
             eqp = eList.get(Integer.parseInt(request.getParameter("rButton")));
-            usr.sendReservationRequest(usr.getID(), eqp.getName());
+            clrk.deleteEquipment(eqp.getName());
         %>
-        <p>Request Sent</p>
+        <p>Equipment Deleted!</p>
     </body>
 </html>

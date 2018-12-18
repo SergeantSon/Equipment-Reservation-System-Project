@@ -44,11 +44,16 @@
         <br>
 
         <% } else if (Display == 2) { %>
-        <a href="AddEquipment.jsp">Add Equipment</a>
+        <a href="AddForm.jsp">Add Equipment</a>
+        <br>
+        <a href="DeleteForm.jsp">Delete Equipment</a>
+        <br>
+        <a href="PrepareDocForm.jsp">Prepare Equipment Document</a>
+        <br>
+        <a href="AssignEquipment.jsp">Assign Equipment</a>
         <br>
         <%
                 session.setAttribute("instance", credentials);
-                out.print("Clerk");
             }
             //Admin Display
             if (Display == 3) {

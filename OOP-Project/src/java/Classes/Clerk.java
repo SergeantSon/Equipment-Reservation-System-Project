@@ -23,6 +23,16 @@ public class Clerk extends Employee {
 
     public void addEquipment(String Name, int Quantity, boolean Availability, String Document) {
         query = "INSERT INTO BERKE.EQUIPMENT (\"NAME\", QUANTITY, AVAILABILITY, DOCUMENT) VALUES ('" + Name + "', " + Quantity + ", " + Availability + ", '" + Document + "')";
-        temp.addToDatabase(query);
+        temp.queryMachine(query);
+    }
+
+    public void deleteEquipment(String Name) {
+        query = "DELETE FROM BERKE.EQUIPMENT WHERE \"NAME\" = '" + Name + "'";
+        temp.queryMachine(query);
+    }
+    
+    public void addDocument(String text, String Name){
+        query = " UPDATE BERKE.EQUIPMENT SET \"DOCUMENT\" = '" + text + "' WHERE \"NAME\" = '" + Name + "' ";
+        temp.queryMachine(query);
     }
 }

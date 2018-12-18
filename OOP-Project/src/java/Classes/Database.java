@@ -36,7 +36,7 @@ public class Database {
         }
     }
 
-    public void addToDatabase(String query) {
+    public void queryMachine(String query) {
         try {
             myStatement = myconObj.prepareStatement(query);
             myStatement.execute();

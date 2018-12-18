@@ -24,10 +24,11 @@
             String search = request.getParameter("Search");
             Equipment temp = new Equipment();
 
-            List<Equipment> eList = temp.equipmentList(search, "usr");
+            List<Equipment> eList = temp.equipmentList(search, "clrk");
             session.setAttribute("eList", eList);
         %>
-        <form name="Send" action="ReserveEquipment.jsp" method="POST">
+
+        <form name="Send" action="PrepareDocument.jsp" method="POST">
             <table border="1">
                 <tbody>
                     <tr>

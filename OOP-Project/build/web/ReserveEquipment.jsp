@@ -12,13 +12,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Success</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
         <% 
+            Equipment eqp;
+            
             User usr = (User)session.getAttribute("instance");
-            Equipment eqp = (Equipment)session.getAttribute("Equipment");
             List<Equipment> eList = (List)session.getAttribute("eList");
             
             eqp = eList.get(Integer.parseInt(request.getParameter("rButton")));

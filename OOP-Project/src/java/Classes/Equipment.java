@@ -59,14 +59,20 @@ public class Equipment {
         return "Equipment{" + "Name=" + Name + ", Availability=" + Availability + ", Quantity=" + Quantity + '}';
     }
 
-    public List equipmentList(String search) {
-
-        if (search == null) {
-            query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true ";
-        } else {
-            query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true AND name = '" + search + "'";
+    public List equipmentList(String search, String emp) {
+        if ("usr".equals(emp)) {
+            if (search == null) {
+                query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true ";
+            } else {
+                query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true AND name = '" + search + "'";
+            }
+        } else if ("clrk".equals(emp)) {
+            if (search == null) {
+                query = " SELECT * FROM BERKE.EQUIPMENT";
+            } else {
+                query = " SELECT * FROM BERKE.EQUIPMENT Where name = '" + search + "'";
+            }
         }
-
         Database temp = new Database();
         ResultSet myresObj = temp.showAllResult(query);
 

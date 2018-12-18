@@ -24,7 +24,7 @@
             String search = request.getParameter("Search");
             Equipment temp = new Equipment();
 
-            List<Equipment> eList = temp.equipmentList(search);
+            List<Equipment> eList = temp.equipmentList(search, "usr");
             session.setAttribute("eList", eList);
         %>
         <form name="Send" action="ReserveEquipment.jsp" method="POST">
