@@ -33,31 +33,36 @@
         <% } else if (Display == 1) {
 
             session.setAttribute("instance", credentials);
+            credentials = null;
         %>
 
-        <a href="SearchEquipment.jsp">Search Equipment</a>
+        <a href="USearchEquipment.jsp">Search Equipment</a>
         <br>
-        <a href="FeedbackMenu.jsp">Write Feedback</a>
+        <a href="UFeedbackMenu.jsp">Write Feedback</a>
         <br>
-        <a href="index.jsp" onclick=" <% id = null;
-            password = null;%>">Logout</a> 
+        <a href="index.jsp" onclick=" <% id = null; password = null;%>">Logout</a> 
         <br>
 
-        <% } else if (Display == 2) { %>
-        <a href="AddEquipment.jsp">Add Equipment</a>
+        <% } else if (Display == 2) { 
+        
+            session.setAttribute("instance", credentials);
+            credentials = null;
+        
+        %>
+        
+        <a href="CAddForm.jsp">Add Equipment</a>
         <br>
-        <%
+        <a href="CDeleteForm.jsp">Delete Equipment</a>
+        <br>
+        <a href="CPrepareDocForm.jsp">Prepare Equipment Document</a>
+        <br>
+        <a href="CAssignEquipmentForm.jsp">Assign Equipment</a>
+        <br>
+        
+        <% } else if (Display == 3) {
+
                 session.setAttribute("instance", credentials);
-                out.print("Clerk");
-            }
-            //Admin Display
-            if (Display == 3) {
-
-                Employee newUser = new Admin();
-                newUser = credentials;
                 credentials = null;
-                session.setAttribute("instance", newUser);
-                out.print("Admin");
 
             }
 

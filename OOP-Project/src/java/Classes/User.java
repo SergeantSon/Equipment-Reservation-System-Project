@@ -1,6 +1,5 @@
 package Classes;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -13,9 +12,11 @@ import java.util.List;
  * @author brk
  */
 public class User extends Employee {
-
+    
     Database temp = new Database();
+    Equipment temp2 = new Equipment();
     String query;
+    String filler = "none";
 
     public User() {
     }
@@ -25,15 +26,28 @@ public class User extends Employee {
     }
 
     public void sendReservationRequest(String tId, String eName) {
+        
         query = "INSERT INTO BERKE.\"Requests\" (\"UserID\", \"eName\", \"Date\")  VALUES ('" + tId + "', '" + eName + "', CURRENT_DATE)";
-        temp.addToDatabase(query);
+        temp.queryMachine(query);
         temp = null;
     }
 
     public void sendFeedback(String tId, String text) {
+        
         query = "INSERT INTO BERKE.FEEDBACK (\"UserName\", \"Date\", FEEDBACK) VALUES ('" + tId + "', CURRENT_DATE, '" + text + "')";
-        temp.addToDatabase(query);
+        temp.queryMachine(query);
         temp = null;
+    }
+    
+    public List search(String srch){
+        
+        if (srch == null) {
+                query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true ";
+            } else {
+                query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true AND name = '" + srch + "'";
+            }
+        
+        return temp2.equipmentList(query, filler);
     }
 
 }

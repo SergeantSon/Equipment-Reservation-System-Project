@@ -17,7 +17,7 @@ import java.sql.SQLException;
  * @author brk
  */
 public class Database {
-
+    
     Employee newEmployee;
     String id = null;
     String query = null;
@@ -28,6 +28,7 @@ public class Database {
     ResultSet myresObj = null;
 
     public Database() {
+        
         try {
             myconObj = DriverManager.getConnection("jdbc:derby://localhost:1527/ProjectDB", "berke", "aaqq1234");
             mystatObj = myconObj.createStatement();
@@ -36,7 +37,8 @@ public class Database {
         }
     }
 
-    public void addToDatabase(String query) {
+    public void queryMachine(String query) {
+
         try {
             myStatement = myconObj.prepareStatement(query);
             myStatement.execute();
@@ -46,11 +48,13 @@ public class Database {
     }
 
     public ResultSet showAllResult(String Query) {
+    
         try {
             myresObj = mystatObj.executeQuery(Query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
         return myresObj;
     }
 

@@ -50,48 +50,36 @@ public class Equipment {
         return Document;
     }
 
-    public void setDocument(String Document) {
-        this.Document = Document;
-    }
+    public List equipmentList(String query,String srch) {
 
-    @Override
-    public String toString() {
-        return "Equipment{" + "Name=" + Name + ", Availability=" + Availability + ", Quantity=" + Quantity + '}';
-    }
-
-    public List equipmentList(String search) {
-
-        if (search == null) {
-            query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true ";
-        } else {
-            query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true AND name = '" + search + "'";
+        if (srch == null) {
+            query = " SELECT * FROM BERKE.EQUIPMENT";
+        } else if(!"none".equals(srch)){
+            query = " SELECT * FROM BERKE.EQUIPMENT Where name = '" + srch + "'";
         }
 
         Database temp = new Database();
         ResultSet myresObj = temp.showAllResult(query);
 
-        if (resultList.isEmpty() == true) {
+        try {
 
-            try {
+            while (myresObj.next()) {
 
-                while (myresObj.next()) {
+                Equipment listElement = new Equipment(
+                        myresObj.getString("NAME"),
+                        myresObj.getBoolean("AVAILABILITY"),
+                        myresObj.getInt("QUANTITY"),
+                        myresObj.getString("DOCUMENT"));
 
-                    Equipment listElement = new Equipment(
-                            myresObj.getString("NAME"),
-                            myresObj.getBoolean("AVAILABILITY"),
-                            myresObj.getInt("QUANTITY"),
-                            myresObj.getString("DOCUMENT"));
+                resultList.add(listElement);
 
-                    resultList.add(listElement);
-
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return resultList;
+        
     }
 
 }
