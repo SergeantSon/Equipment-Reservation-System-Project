@@ -1,5 +1,7 @@
 package Classes;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,9 +15,12 @@ import java.util.List;
  * @author brk
  */
 public class User extends Employee {
-
+    
     Database temp = new Database();
-    String query;
+    List rList = new LinkedList();
+    ResultSet rSet;
+
+    String query = null;
 
     public User() {
     }
@@ -25,15 +30,45 @@ public class User extends Employee {
     }
 
     public void sendReservationRequest(String tId, String eName) {
+
         query = "INSERT INTO BERKE.\"Requests\" (\"UserID\", \"eName\", \"Date\")  VALUES ('" + tId + "', '" + eName + "', CURRENT_DATE)";
-        temp.addToDatabase(query);
+        temp.queryMachine(query);
         temp = null;
     }
 
     public void sendFeedback(String tId, String text) {
+
         query = "INSERT INTO BERKE.FEEDBACK (\"UserName\", \"Date\", FEEDBACK) VALUES ('" + tId + "', CURRENT_DATE, '" + text + "')";
-        temp.addToDatabase(query);
+        temp.queryMachine(query);
         temp = null;
+    }
+
+    public List search(String input) {
+
+        if (input == null) {
+            query = " SELECT * FROM BERKE.EQUIPMENT where availability = true ";
+        } else {
+            query = "Select * From BERKE.Equipment Where Availability = true AND name = '" + input + "' ";
+        }
+
+        Database temp2 = new Database();
+        rSet = temp2.showAllResult(query);
+
+        try {
+            while (rSet.next()) {
+                Equipment listElement = new Equipment(
+                        rSet.getString("NAME"),
+                        rSet.getBoolean("AVAILABILITY"),
+                        rSet.getInt("QUANTITY"),
+                        rSet.getString("DOCUMENT"));
+
+                rList.add(listElement);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rList;
     }
 
 }

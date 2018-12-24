@@ -21,6 +21,7 @@ public class Equipment {
     private int Quantity;
     private String Document;
 
+    ResultSet myresObj;
     private String query;
     List resultList = new LinkedList();
 
@@ -50,48 +51,33 @@ public class Equipment {
         return Document;
     }
 
-    public void setDocument(String Document) {
-        this.Document = Document;
-    }
+    public List equipmentList(String srch) {
 
-    @Override
-    public String toString() {
-        return "Equipment{" + "Name=" + Name + ", Availability=" + Availability + ", Quantity=" + Quantity + '}';
-    }
-
-    public List equipmentList(String search) {
-
-        if (search == null) {
-            query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true ";
+        if (srch == null) {
+            query = " SELECT * FROM BERKE.EQUIPMENT";
         } else {
-            query = " SELECT * FROM BERKE.EQUIPMENT Where availability = true AND name = '" + search + "'";
+            query = " SELECT * FROM BERKE.EQUIPMENT Where name = '" + srch + "' ";
         }
 
         Database temp = new Database();
-        ResultSet myresObj = temp.showAllResult(query);
+        myresObj = temp.showAllResult(query);
 
-        if (resultList.isEmpty() == true) {
+        try {
+            while (myresObj.next()) {
+                Equipment listElement = new Equipment(
+                        myresObj.getString("NAME"),
+                        myresObj.getBoolean("AVAILABILITY"),
+                        myresObj.getInt("QUANTITY"),
+                        myresObj.getString("DOCUMENT"));
 
-            try {
-
-                while (myresObj.next()) {
-
-                    Equipment listElement = new Equipment(
-                            myresObj.getString("NAME"),
-                            myresObj.getBoolean("AVAILABILITY"),
-                            myresObj.getInt("QUANTITY"),
-                            myresObj.getString("DOCUMENT"));
-
-                    resultList.add(listElement);
-
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+                resultList.add(listElement);
             }
-
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return resultList;
+
     }
 
 }
